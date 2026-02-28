@@ -53,8 +53,6 @@ The pipeline consists of a four-step verification process:
 3. **Evidence Retrieval**: Evidence is retrieved using a locally-hosted instance of **SearXNG**, an open-source meta-search engine.
 4. **Claim Verification**: For each claim, reteieved evidence snippets are provided to a language model for evidence-conditioned reasoning. 
 
-![FactSearch Pipeline](images/factsearch_pipeline.png)
-
 The pipeline outputs the following information:
 
 * Binary Claim Verification Labels (True/False)
