@@ -101,7 +101,7 @@ Once these fields have been filled, you will be able to trigger the fact checkin
 
 Parts of the claim extraction and verification logic are adapted from [FacTool](https://github.com/GAIR-NLP/factool) (Chern et al., 2023), specifically the YAML prompt templates and OpenAI wrapper utilities (which have undergone modification to support current GPT models). All search infrastructure, evidence retrieval, UI components, and local model integration are original contributions.
 
-This project was developed at the University of Liverpool, and I would like to thank Dr. Meng Fang for his invaluable support and contributions to the project. You can find more of his work here: https://mengfn.github.io
+This project was developed at the University of Liverpool by Harry Mackenzie and Dr Meng Fang. 
 
 
 
