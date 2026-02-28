@@ -1,5 +1,4 @@
 # FactSearch — Enhanced Fact-Checking Framework
-DEMO VERSION
 
 ## Overview
 
@@ -64,11 +63,6 @@ The pipeline outputs the following information:
 
 FactSearch is a research project aimed at improving AI transparency and safety for decision-making scenarios, though it is important to acknowledge that it can make incorrect assumptions and fail to flag unfactual material. **Please do your due diligence in thoroughly checking LLM outputs, especially when this information is influencing important decisions.** FactSearch is intended only as a support tool and ultimately is not as a substitute for human intuition and expertise. 
 
-## FactSearch Demo
-
-**Insert short demo vid here**
-
-
 ## How to use FactSearch
 
 Users can choose between classes of language model when initialising FactSearch - both have inherent advantages and disadvantages:
@@ -101,8 +95,6 @@ Once FactSearch is initialised, users will be prompted for two inputs:
 ![FactSearch Input Panel](images/input_panel.png)
 
 Once these fields have been filled, you will be able to use the button within the panel to run the fact checking pipeline and your results will be ready to review within a few moments. 
-
-*** Image here showing example outputs ***
 
 ## Technical
 
