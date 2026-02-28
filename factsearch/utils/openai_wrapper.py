@@ -129,8 +129,8 @@ class OpenAIChat():
                         request_params['max_tokens'] = self.config['max_tokens']
                                 
                     response = await openai.ChatCompletion.acreate(**request_params)
-                    print(f"DEBUG: Raw API response: {response}") 
-                    print(f"DEBUG: Content: {response['choices'][0]['message']['content']}")
+                    #print(f"DEBUG: Raw API response: {response}") 
+                    #print(f"DEBUG: Content: {response['choices'][0]['message']['content']}")
                     return response
 
                 except openai.error.RateLimitError:

@@ -529,7 +529,7 @@ engines:
     engine: wikipedia
     shortcut: wp
     # add "list" to the array to get results in the results list
-    display_type: ["infobox"]
+    display_type: ["infobox", "list"]
     categories: [general]
 
   - name: bilibili
@@ -1929,7 +1929,7 @@ engines:
 
   - name: semantic scholar
     engine: semantic_scholar
-    disabled: true
+    disabled: false
     shortcut: se
 
   # Spotify needs API credentials
@@ -2119,7 +2119,7 @@ engines:
   - name: yahoo
     engine: yahoo
     shortcut: yh
-    disabled: true
+    disabled: false
 
   - name: yahoo news
     engine: yahoo_news
@@ -2301,7 +2301,7 @@ engines:
     engine: wolframalpha_noapi
     timeout: 6.0
     categories: general
-    disabled: true
+    disabled: false
 
   - name: dictzone
     engine: dictzone

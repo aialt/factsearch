@@ -2,6 +2,7 @@ import asyncio
 import aiohttp
 import os
 import logging
+from collections import defaultdict
 
 
 class SearXNGAPIWrapper:
@@ -40,8 +41,7 @@ class SearXNGAPIWrapper:
             'format': 'json',
             'lang': hl,
             'categories': 'general',
-            'safesearch': 0,
-            'engines': 'brave, qwant,mojeek'
+            'safesearch': 0
         }
         
         try:
@@ -58,7 +58,46 @@ class SearXNGAPIWrapper:
         except Exception as e:
             logging.error(f"SearXNG search error for '{search_term}': {e}")
             return {'results': []}
-    
+
+    def _log_engine_breakdown(self, all_raw_results: list):
+        """
+        Parses engine attribution across all raw SearXNG results and prints
+        a breakdown of how many results (snippets) came from each engine.
+
+        SearXNG returns an 'engines' list per result indicating which engines
+        returned that result. This method tallies those across all queries.
+
+        Args:
+            all_raw_results: list of raw SearXNG response dicts (one per query)
+        """
+        engine_counts = defaultdict(int)
+        total_results = 0
+
+        for response in all_raw_results:
+            if not isinstance(response, dict):
+                continue
+            for result in response.get('results', []):
+                engines = result.get('engines', [])
+                for engine in engines:
+                    engine_counts[engine.strip().lower()] += 1
+                total_results += 1
+
+        if total_results == 0:
+            print("\n[SearXNG Engine Breakdown] No results retrieved across all queries.")
+            return
+
+        print("\n" + "="*45)
+        print("  SearXNG Engine Breakdown (across all queries)")
+        print("="*45)
+        print(f"  {'Engine':<20} {'Results':>8}  {'Share':>7}")
+        print("-"*45)
+        for engine, count in sorted(engine_counts.items(), key=lambda x: -x[1]):
+            share = (count / total_results) * 100
+            print(f"  {engine:<20} {count:>8}  {share:>6.1f}%")
+        print("-"*45)
+        print(f"  {'TOTAL':<20} {total_results:>8}")
+        print("="*45 + "\n")
+
     def _parse_results(self, results):
         """
         Expected output format:
@@ -130,11 +169,14 @@ class SearXNGAPIWrapper:
                 flattened_queries.append(item)
         
         # Perform searches
-        results = await self.parallel_searches(flattened_queries, gl=self.gl, hl=self.hl)
-        
+        raw_results = await self.parallel_searches(flattened_queries, gl=self.gl, hl=self.hl)
+
+        # Log engine breakdown across all queries
+        self._log_engine_breakdown(raw_results)
+
         # Process results
         snippets_list = []
-        for i, result in enumerate(results):
+        for i, result in enumerate(raw_results):
             if isinstance(result, Exception):
                 print(f"[Warning] Search query '{flattened_queries[i]}' failed with error: {result}")
                 snippets_list.append([{"content": "Search failed", "source": "None"}])
@@ -144,7 +186,7 @@ class SearXNGAPIWrapper:
                 print(f"[Warning] Unexpected result type: {type(result)} — skipping.")
                 snippets_list.append([{"content": "Unexpected result format", "source": "None"}])
         
-        # Split results in5o pairs
+        # Split results into pairs
         snippets_split = [
             snippets_list[i] + snippets_list[i+1] 
             for i in range(0, len(snippets_list), 2)
