@@ -94,19 +94,8 @@ Once FactSearch is initialised, users will be prompted for two inputs:
 
 ![FactSearch Input Panel](images/input_panel.png)
 
-Once these fields have been filled, you will be able to use the button within the panel to run the fact checking pipeline and your results will be ready to review within a few moments. 
+Once these fields have been filled, you will be able to trigger the fact checking pipeline and your results will be ready to review within a few moments. 
 
-## Technical
-
-### SearXNG Configuration and Language Model Selection
-Search engine configuration and effects of search engine blocks on the system, built in mitigation measures (XNG wrapper pausing) - maybe add this into the app?? 
-OpenAI model selection + thoughts on relative model performance (mention temperature needing to be set to 1)
-Additional NLP model integration (OLlama probably)
-
-### Known Issues
-Limitations due to API rate limiting (search engine blocking) - don't launch too many queries in a short space of time. Longer responses take a long time due to the nessecity of slowing down search engine requests. 
-
-## Credits
 
 ## Acknowledgements
 
